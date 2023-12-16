@@ -28,7 +28,8 @@ import Animated, {
   useEvent,
   useHandler,
 } from 'react-native-reanimated'
-import { useDeepCompareMemo } from 'use-deep-compare'
+
+// import { useDeepCompareMemo } from 'use-deep-compare' //custom
 
 import { Context, TabNameContext } from './Context'
 import { IS_IOS, ONE_FRAME_MS, scrollToImpl } from './helpers'
@@ -40,6 +41,44 @@ import {
   TabsWithProps,
   Ref,
 } from './types'
+
+
+/**Start custom**/
+
+import deepEqual from "deep-equal";
+/** START: Copy of use-deep-compare functions */
+function checkDeps(deps, name) {
+  const reactHookName = `React.${name.replace(/DeepCompare/, "")}`;
+
+  if (!deps || deps.length === 0) {
+    throw new Error(
+      `${name} should not be used with no dependencies. Use ${reactHookName} instead.`
+    );
+  }
+}
+
+function useDeepCompareMemoize(value) {
+  const ref = useRef([]);
+
+ // ******Using separate install of `deep-equal` *****
+  if (!deepEqual(value, ref.current)) {
+    ref.current = value;
+  }
+
+  return ref.current;
+}
+function useDeepCompareMemo(factory, dependencies) {
+  if (process.env.NODE_ENV !== "production") {
+    checkDeps(dependencies, "useDeepCompareMemo");
+  }
+
+  return useMemo(factory, useDeepCompareMemoize(dependencies));
+}
+/** End: Copy of use-deep-compare functions */
+
+
+
+/**end custom**/
 
 export function useContainerRef() {
   return useAnimatedRef<ContainerRef>()
