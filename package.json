@@ -114,6 +114,7 @@
     ]
   },
   "dependencies": {
+    "deep-equal": "2.2.3"
   },
   "packageManager": "yarn@1.22.11",
   "react-native-builder-bob": {
