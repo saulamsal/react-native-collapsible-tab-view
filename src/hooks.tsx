@@ -42,13 +42,12 @@ import {
   Ref,
 } from './types'
 
-
 /**Start custom**/
+import deepEqual from 'deep-equal';
 
-import deepEqual from "deep-equal";
 /** START: Copy of use-deep-compare functions */
-function checkDeps(deps, name) {
-  const reactHookName = `React.${name.replace(/DeepCompare/, "")}`;
+function checkDeps(deps: DependencyList, name: string): void {
+  const reactHookName = `React.${name.replace(/DeepCompare/, '')}`;
 
   if (!deps || deps.length === 0) {
     throw new Error(
@@ -57,25 +56,26 @@ function checkDeps(deps, name) {
   }
 }
 
-function useDeepCompareMemoize(value) {
-  const ref = useRef([]);
+function useDeepCompareMemoize<T>(value: T): T {
+  const ref = useRef<T>(null as unknown as T);
 
- // ******Using separate install of `deep-equal` *****
   if (!deepEqual(value, ref.current)) {
     ref.current = value;
   }
 
   return ref.current;
 }
-function useDeepCompareMemo(factory, dependencies) {
-  if (process.env.NODE_ENV !== "production") {
-    checkDeps(dependencies, "useDeepCompareMemo");
+
+function useDeepCompareMemo<T>(factory: () => T, dependencies: DependencyList): T {
+  if (process.env.NODE_ENV !== 'production') {
+    checkDeps(dependencies, 'useDeepCompareMemo');
   }
 
   return useMemo(factory, useDeepCompareMemoize(dependencies));
 }
 /** End: Copy of use-deep-compare functions */
 
+/**end custom**/
 
 
 /**end custom**/
