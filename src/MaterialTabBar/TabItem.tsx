@@ -54,7 +54,9 @@ export const MaterialTabItem = <T extends TabName = string>(
   const renderedLabel = useMemo(() => {
     if (typeof label === 'string') {
       return (
-        <Animated.Text style={[styles.label, stylez, labelStyle]}>
+        <Animated.Text style={[styles.label, stylez, labelStyle, 
+          (Math.abs(index - indexDecimal.value) < 0.5 && props.activeLabelStyle)
+        ]}>
           {label}
         </Animated.Text>
       )
@@ -68,9 +70,11 @@ export const MaterialTabItem = <T extends TabName = string>(
       onLayout={onLayout}
       style={({ pressed }) => [
         { opacity: pressed ? pressOpacity : 1 },
-        !scrollEnabled && styles.grow,
+        (!scrollEnabled && !props.allowTabScroll) && styles.grow,
         styles.item,
         style,
+        (Math.abs(index - indexDecimal.value) < 0.5 &&
+          props.activeTabStyle)       
       ]}
       onPress={() => onPress(name)}
       android_ripple={{
