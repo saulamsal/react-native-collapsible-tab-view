@@ -41,6 +41,11 @@ export type MaterialTabItemProps<T extends TabName> = TabItemProps<T> & {
 } & Omit<PressableProps, 'onPress' | 'children'>
 
 export type MaterialTabBarProps<N extends TabName> = TabBarProps<N> & {
+  // Add the missing properties to this type
+  activeTabStyle?: StyleProp<ViewStyle>;
+  allowTabScroll?: boolean;
+  activeLabelStyle?: StyleProp<TextStyle>;
+
   /**
    * Indicates whether the tab bar should contain horizontal scroll, when enabled the tab width is dynamic
    */
