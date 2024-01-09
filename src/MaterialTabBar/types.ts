@@ -17,6 +17,10 @@ export type MaterialTabItemProps<T extends TabName> = TabItemProps<T> & {
   onPress: (name: T) => void
   onLayout?: (event: LayoutChangeEvent) => void
   scrollEnabled?: boolean
+  activeTabStyle?: StyleProp<ViewStyle> // Added property
+  allowTabScroll?: boolean             // Added property
+  activeLabelStyle?: AnimatedTextStyle // Added property
+
 
   style?: StyleProp<ViewStyle>
   /**
