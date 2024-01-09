@@ -18,6 +18,12 @@ export type MaterialTabItemProps<T extends TabName> = TabItemProps<T> & {
   onLayout?: (event: LayoutChangeEvent) => void
   scrollEnabled?: boolean
 
+    // Add the missing properties to this type
+  activeTabStyle?: StyleProp<ViewStyle>;
+  allowTabScroll?: boolean;
+  activeLabelStyle?: StyleProp<TextStyle>;
+
+  
   style?: StyleProp<ViewStyle>
   /**
    * Style to apply to the tab item label
