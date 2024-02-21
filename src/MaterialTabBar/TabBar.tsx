@@ -78,9 +78,9 @@ const MaterialTabBar = <T extends TabName = TabName>({
     scrollEnabled
       ? []
       : tabNames.map((_, i) => {
-          const tabWidth = width / nTabs
-          return { width: tabWidth, x: i * tabWidth }
-        })
+        const tabWidth = width / nTabs
+        return { width: tabWidth, x: i * tabWidth }
+      })
   )
 
   React.useEffect(() => {
@@ -185,7 +185,7 @@ const MaterialTabBar = <T extends TabName = TabName>({
     <Animated.ScrollView
       ref={tabBarRef}
       horizontal
-      style={style}
+      style={[style, { backgroundColor: 'transparent' }]}
       contentContainerStyle={[
         styles.contentContainer,
         !scrollEnabled && { width },
