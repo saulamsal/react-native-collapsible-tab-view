@@ -377,20 +377,25 @@ export const Container = React.memo(
           }}
         >
           <Animated.View
-            style={[styles.container, { width }, containerStyle]}
+            style={[styles.container, { width }, containerStyle,]}
             onLayout={onLayout}
             pointerEvents="box-none"
           >
+
+
+
             <Animated.View
               pointerEvents="box-none"
               style={[
                 styles.topContainer,
                 headerContainerStyle,
                 !cancelTranslation && stylez,
+                { backgroundColor: 'red' }
+              
               ]}
             >
               <View
-                style={[styles.container, styles.headerContainer]}
+                style={[styles.container, styles.headerContainer, {backgroundColor: 'transparent'}]}
                 onLayout={getHeaderHeight}
                 pointerEvents="box-none"
               >
@@ -406,7 +411,7 @@ export const Container = React.memo(
                   })}
               </View>
               <View
-                style={[styles.container, styles.tabBarContainer]}
+                style={[styles.container, styles.tabBarContainer, { backgroundColor: 'transparent' }]}
                 onLayout={getTabBarHeight}
                 pointerEvents="box-none"
               >
@@ -423,6 +428,7 @@ export const Container = React.memo(
                   })}
               </View>
             </Animated.View>
+
 
             <AnimatedPagerView
               ref={containerRef}
