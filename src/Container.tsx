@@ -36,6 +36,8 @@ import {
   TabName,
 } from './types'
 
+
+
 const AnimatedPagerView = Animated.createAnimatedComponent(PagerView)
 
 /**
@@ -81,6 +83,7 @@ export const Container = React.memo(
         onTabChange,
         width: customWidth,
         allowHeaderOverscroll,
+        CustomHeaderWrapper,
       },
       ref
     ) => {
@@ -346,6 +349,19 @@ export const Container = React.memo(
         [onTabPress]
       )
 
+
+      const CustomHeaderWrapperContainer = ({children }) => {
+        // Check if a customHeaderWrapper is provided
+        if (CustomHeaderWrapper) {
+          // Use the provided CustomHeaderWrapper to wrap the children
+          return <CustomHeaderWrapper>{children}</CustomHeaderWrapper>;
+        }
+        // If no wrapper is provided, just render the children
+        return <>{children}</>;
+      };
+
+
+      
       return (
         <Context.Provider
           value={{
@@ -383,22 +399,32 @@ export const Container = React.memo(
           >
 
 
-
-            <Animated.View
+               <Animated.View
               pointerEvents="box-none"
               style={[
                 styles.topContainer,
                 headerContainerStyle,
                 !cancelTranslation && stylez,
-                { backgroundColor: 'red' }
+                CustomHeaderWrapper && { backgroundColor: 'transparent' }
               
               ]}
             >
+
+
+                
+              <CustomHeaderWrapperContainer>
+          
               <View
-                style={[styles.container, styles.headerContainer, {backgroundColor: 'transparent'}]}
+                  style={[styles.container, styles.headerContainer, CustomHeaderWrapper && { backgroundColor: 'transparent',
+  
+                
+                }]}
                 onLayout={getHeaderHeight}
                 pointerEvents="box-none"
               >
+
+              
+
                 {renderHeader &&
                   renderHeader({
                     containerRef,
@@ -411,7 +437,7 @@ export const Container = React.memo(
                   })}
               </View>
               <View
-                style={[styles.container, styles.tabBarContainer, { backgroundColor: 'transparent' }]}
+                    style={[styles.container, styles.tabBarContainer, CustomHeaderWrapper && { backgroundColor: 'transparent' }]}
                 onLayout={getTabBarHeight}
                 pointerEvents="box-none"
               >
@@ -427,7 +453,17 @@ export const Container = React.memo(
                     tabProps,
                   })}
               </View>
+         
+              </CustomHeaderWrapperContainer>
+
+
+              
             </Animated.View>
+
+         
+
+
+
 
 
             <AnimatedPagerView
